@@ -32,10 +32,10 @@
                     <form method="post" novalidate>
                         {% csrf_token %}
 
-                        <!-- Email/Username -->
+                        <!-- Email -->
                         <div class="mb-3">
-                            <label for="id_username" class="form-label">Email</label>
-                            <input type="email" name="username" class="form-control" placeholder="Введите email" required id="id_username">
+                            <label for="{{ form.username.id_for_label }}" class="form-label">{{ form.username.label }}</label>
+                            {{ form.username }}
                             {% if form.username.errors %}
                                 <div class="text-danger small mt-1">
                                     {% for error in form.username.errors %}
@@ -47,8 +47,8 @@
 
                         <!-- Пароль -->
                         <div class="mb-3">
-                            <label for="id_password" class="form-label">Пароль</label>
-                            <input type="password" name="password" class="form-control" placeholder="Введите пароль" required id="id_password">
+                            <label for="{{ form.password.id_for_label }}" class="form-label">{{ form.password.label }}</label>
+                            {{ form.password }}
                             {% if form.password.errors %}
                                 <div class="text-danger small mt-1">
                                     {% for error in form.password.errors %}

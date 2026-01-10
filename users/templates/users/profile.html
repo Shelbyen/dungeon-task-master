@@ -3,99 +3,153 @@
 {% block title %}Профиль{% endblock %}
 
 {% block content %}
-<div class="container mt-5">
-    <div class="row">
-        <div class="col-md-8">
-            <div class="card shadow">
-                <div class="card-header bg-primary text-white">
-                    <h4 class="mb-0">Профиль пользователя</h4>
+<div class="container">
+    <div class="text-center mb-5">
+        <h1 class="section-title">Профиль пользователя</h1>
+        <p class="lead">Управление вашим аккаунтом и статистикой</p>
+    </div>
+
+    <div class="row g-4">
+        <!-- Профильная информация -->
+        <div class="col-lg-8">
+            <div class="card shadow-sm">
+                <div class="card-header bg-transparent border-0 pb-0">
+                    <h4 class="fw-bold"><i class="bi bi-person-circle me-2"></i>Информация о профиле</h4>
                 </div>
-                <div class="card-body p-4">
-                    <div class="row mb-4">
+                <div class="card-body">
+                    <div class="row g-4">
                         <div class="col-md-6">
-                            <p><strong>Email:</strong></p>
-                            <p class="text-muted">{{ user.email }}</p>
+                            <div class="mb-3">
+                                <label class="form-label fw-bold text-muted">Email</label>
+                                <p class="fs-5">{{ user.email }}</p>
+                            </div>
                         </div>
                         <div class="col-md-6">
-                            <p><strong>Имя:</strong></p>
-                            <p class="text-muted">{{ user.name }}</p>
+                            <div class="mb-3">
+                                <label class="form-label fw-bold text-muted">Имя</label>
+                                <p class="fs-5">{{ user.name|default:"-" }}</p>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="mb-3">
+                                <label class="form-label fw-bold text-muted">Статус</label>
+                                <div>
+                                    {% if user.is_active %}
+                                        <span class="badge bg-success fs-6 px-3 py-2">
+                                            <i class="bi bi-check-circle me-1"></i>Активный
+                                        </span>
+                                    {% else %}
+                                        <span class="badge bg-warning fs-6 px-3 py-2">
+                                            <i class="bi bi-exclamation-circle me-1"></i>Неактивный
+                                        </span>
+                                    {% endif %}
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="mb-3">
+                                <label class="form-label fw-bold text-muted">Дата регистрации</label>
+                                <p class="fs-5">{{ user.date_joined|date:"d.m.Y" }}</p>
+                            </div>
                         </div>
                     </div>
 
-                    <div class="row">
-                        <div class="col-md-6">
-                            <p><strong>Статус:</strong></p>
-                            <p>
-                                {% if user.is_active %}
-                                    <span class="badge bg-success">Активный</span>
-                                {% else %}
-                                    <span class="badge bg-danger">Неактивный</span>
-                                {% endif %}
-                            </p>
-                        </div>
-                        <div class="col-md-6">
-                            <p><strong>Количество задач:</strong></p>
-                            <p class="text-muted">{{ user.task_set.count }}</p>
-                        </div>
-                    </div>
+                    <hr class="my-4">
 
-                    <hr>
-
-                    <div class="d-grid gap-2 d-md-flex">
-                        <a href="{% url 'users:edit_profile' %}" class="btn btn-primary">
-                            <i class="bi bi-pencil"></i> Редактировать профиль
+                    <div class="d-flex flex-wrap gap-3">
+                        <a href="{% url 'users:edit_profile' %}" class="btn btn-primary flex-fill">
+                            <i class="bi bi-pencil me-2"></i>Редактировать профиль
                         </a>
-                        <a href="{% url 'users:change_password' %}" class="btn btn-secondary">
-                            <i class="bi bi-key"></i> Изменить пароль
+                        <a href="{% url 'users:change_password' %}" class="btn btn-outline-primary flex-fill">
+                            <i class="bi bi-key me-2"></i>Изменить пароль
                         </a>
-                        <a href="{% url 'tasks:task_list' %}" class="btn btn-outline-primary">
-                            <i class="bi bi-list-check"></i> Мои задачи
+                        <a href="{% url 'tasks:task_list' %}" class="btn btn-outline-secondary flex-fill">
+                            <i class="bi bi-list-check me-2"></i>Мои задачи
                         </a>
                     </div>
                 </div>
             </div>
         </div>
 
-        <div class="col-md-4">
-            <div class="card shadow">
-                <div class="card-header bg-info text-white">
-                    <h5 class="mb-0">Статистика</h5>
+        <!-- Статистика и действия -->
+        <div class="col-lg-4">
+            <!-- Статистика -->
+            <div class="card shadow-sm mb-4">
+                <div class="card-header bg-transparent border-0 pb-0">
+                    <h5 class="fw-bold"><i class="bi bi-graph-up me-2"></i>Статистика задач</h5>
                 </div>
                 <div class="card-body">
-                    <div class="mb-3">
-                        <div class="d-flex justify-content-between mb-2">
-                            <span>Всего задач:</span>
-                            <strong>{{ total_tasks }}</strong>
+                    <div class="d-flex flex-column gap-3">
+                        <div class="d-flex justify-content-between align-items-center p-3 rounded bg-light">
+                            <div>
+                                <h6 class="mb-0">Всего задач</h6>
+                                <small class="text-muted">Все задачи</small>
+                            </div>
+                            <span class="fs-3 fw-bold" style="color: var(--primary-blue);">
+                                {{ total_tasks }}
+                            </span>
                         </div>
-                    </div>
-                    <div class="mb-3">
-                        <div class="d-flex justify-content-between mb-2">
-                            <span>Завершено:</span>
-                            <strong>{{ finished_tasks }}</strong>
+
+                        <div class="d-flex justify-content-between align-items-center p-3 rounded bg-light">
+                            <div>
+                                <h6 class="mb-0">Завершено</h6>
+                                <small class="text-muted">Выполненные задачи</small>
+                            </div>
+                            <span class="fs-3 fw-bold" style="color: #10b981;">
+                                {{ finished_tasks }}
+                            </span>
                         </div>
-                    </div>
-                    <div class="mb-3">
-                        <div class="d-flex justify-content-between mb-2">
-                            <span>В процессе:</span>
-                            <strong>{{ in_progress_tasks }}</strong>
+
+                        <div class="d-flex justify-content-between align-items-center p-3 rounded bg-light">
+                            <div>
+                                <h6 class="mb-0">В работе</h6>
+                                <small class="text-muted">Текущие задачи</small>
+                            </div>
+                            <span class="fs-3 fw-bold" style="color: #f59e0b;">
+                                {{ in_progress_tasks }}
+                            </span>
+                        </div>
+
+                        <div class="d-flex justify-content-between align-items-center p-3 rounded"
+                             style="background: linear-gradient(135deg, var(--primary-blue), var(--secondary-purple)); color: white;">
+                            <div>
+                                <h6 class="mb-0">Прогресс</h6>
+                                <small>Процент завершения</small>
+                            </div>
+                            <span class="fs-3 fw-bold">
+                                {% if total_tasks > 0 %}
+                                    {{ finished_tasks|div:total_tasks|mul:100|floatformat:0 }}%
+                                {% else %}
+                                    0%
+                                {% endif %}
+                            </span>
                         </div>
                     </div>
                 </div>
             </div>
 
-            <div class="card shadow mt-3">
-                <div class="card-header bg-danger text-white">
-                    <h5 class="mb-0">⚙️ Опасная зона</h5>
+            <!-- Опасная зона -->
+            <div class="card shadow-sm">
+                <div class="card-header bg-transparent border-0 pb-0">
+                    <h5 class="fw-bold text-danger"><i class="bi bi-exclamation-triangle me-2"></i>Опасная зона</h5>
                 </div>
                 <div class="card-body">
-                    <p class="small text-muted">Вы можете выйти из системы здесь:</p>
-                    <a href="{% url 'users:logout' %}" class="btn btn-danger btn-sm w-100 mb-2">
-                        <i class="bi bi-box-arrow-right"></i> Выход
-                    </a>
-                    <p class="small text-muted">Или удалить свой аккаунт навсегда:</p>
-                    <a href="{% url 'users:delete_account' %}" class="btn btn-danger btn-sm w-100">
-                        <i class="bi bi-trash"></i> Удалить аккаунт
-                    </a>
+                    <div class="mb-3">
+                        <p class="mb-2">Вы можете выйти из системы:</p>
+                        <a href="{% url 'users:logout' %}" class="btn btn-outline-primary w-100">
+                            <i class="bi bi-box-arrow-right me-2"></i>Выход
+                        </a>
+                    </div>
+
+                    <div>
+                        <p class="mb-2">Или удалить свой аккаунт навсегда:</p>
+                        <a href="{% url 'users:delete_account' %}" class="btn btn-danger w-100">
+                            <i class="bi bi-trash me-2"></i>Удалить аккаунт
+                        </a>
+                        <div class="form-text mt-2">
+                            Это действие нельзя отменить. Все данные будут удалены.
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>

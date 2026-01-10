@@ -1,6 +1,10 @@
 from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib.auth.decorators import login_required
 from django.contrib import messages
+from django.http import JsonResponse
+from django.views.decorators.http import require_POST
+from django.views.decorators.csrf import csrf_exempt
+import json
 from .models import Task
 from .forms import TaskForm
 
@@ -90,13 +94,60 @@ def task_toggle_status(request, pk):
     """Переключение статуса задачи"""
     task = get_object_or_404(Task, pk=pk, user=request.user)
 
-    if task.status == 'open':
-        task.status = 'in_progress'
-    elif task.status == 'in_progress':
-        task.status = 'finished'
-    # If task is already finished, don't change the status
+    if request.method == 'POST' and request.content_type == 'application/json':
+        # Handle AJAX request from Kanban board
+        try:
+            data = json.loads(request.body)
+            new_status = data.get('status')
 
-    task.save()
-    messages.success(request, f'Статус изменен на: {task.get_status_display()}')
+            if new_status in ['open', 'in_progress', 'finished']:
+                task.status = new_status
+                task.save()
 
-    return redirect('tasks:task_list')
+                return JsonResponse({
+                    'success': True,
+                    'message': f'Статус изменен на: {task.get_status_display()}',
+                    'task_id': task.id,
+                    'new_status': task.status
+                })
+            else:
+                return JsonResponse({
+                    'success': False,
+                    'message': 'Неверный статус задачи'
+                }, status=400)
+        except json.JSONDecodeError:
+            return JsonResponse({
+                'success': False,
+                'message': 'Неверный формат данных'
+            }, status=400)
+    else:
+        # Handle regular form submission
+        if task.status == 'open':
+            task.status = 'in_progress'
+        elif task.status == 'in_progress':
+            task.status = 'finished'
+        # If task is already finished, don't change the status
+
+        task.save()
+        messages.success(request, f'Статус изменен на: {task.get_status_display()}')
+
+        return redirect('tasks:task_list')
+
+
+@login_required(login_url='users:login')
+def kanban_board(request):
+    """Отображение Kanban доски задач"""
+    # Получаем задачи пользователя и группируем по статусам
+    tasks = Task.objects.filter(user=request.user).order_by('-created_at')
+
+    open_tasks = tasks.filter(status='open')
+    progress_tasks = tasks.filter(status='in_progress')
+    finished_tasks = tasks.filter(status='finished')
+
+    context = {
+        'open_tasks': open_tasks,
+        'progress_tasks': progress_tasks,
+        'finished_tasks': finished_tasks,
+    }
+
+    return render(request, 'tasks/kanban_board.html', context)

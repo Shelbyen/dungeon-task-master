@@ -75,7 +75,7 @@ def custom_logout(request):
     from django.contrib import messages
 
     if request.user.is_authenticated:
-        username = request.user.username if hasattr(request.user, 'username') else request.user.email
+        username = getattr(request.user, 'name', request.user.email)
         logout(request)
         messages.success(request, 'Вы успешно вышли из системы.')
 
