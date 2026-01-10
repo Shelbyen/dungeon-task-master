@@ -94,8 +94,7 @@ def task_toggle_status(request, pk):
         task.status = 'in_progress'
     elif task.status == 'in_progress':
         task.status = 'finished'
-    else:
-        task.status = 'open'
+    # If task is already finished, don't change the status
 
     task.save()
     messages.success(request, f'Статус изменен на: {task.get_status_display()}')

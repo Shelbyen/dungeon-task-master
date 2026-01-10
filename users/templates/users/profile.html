@@ -8,7 +8,7 @@
         <div class="col-md-8">
             <div class="card shadow">
                 <div class="card-header bg-primary text-white">
-                    <h4 class="mb-0">👤 Профиль пользователя</h4>
+                    <h4 class="mb-0">Профиль пользователя</h4>
                 </div>
                 <div class="card-body p-4">
                     <div class="row mb-4">
@@ -59,25 +59,25 @@
         <div class="col-md-4">
             <div class="card shadow">
                 <div class="card-header bg-info text-white">
-                    <h5 class="mb-0">📊 Статистика</h5>
+                    <h5 class="mb-0">Статистика</h5>
                 </div>
                 <div class="card-body">
                     <div class="mb-3">
                         <div class="d-flex justify-content-between mb-2">
                             <span>Всего задач:</span>
-                            <strong>{{ user.task_set.count }}</strong>
+                            <strong>{{ total_tasks }}</strong>
                         </div>
                     </div>
                     <div class="mb-3">
                         <div class="d-flex justify-content-between mb-2">
                             <span>Завершено:</span>
-                            <strong>{{ user.task_set.filter|length }}</strong>
+                            <strong>{{ finished_tasks }}</strong>
                         </div>
                     </div>
                     <div class="mb-3">
                         <div class="d-flex justify-content-between mb-2">
                             <span>В процессе:</span>
-                            <strong>{{ user.task_set.count|add:"-0" }}</strong>
+                            <strong>{{ in_progress_tasks }}</strong>
                         </div>
                     </div>
                 </div>
@@ -89,8 +89,12 @@
                 </div>
                 <div class="card-body">
                     <p class="small text-muted">Вы можете выйти из системы здесь:</p>
-                    <a href="{% url 'users:logout' %}" class="btn btn-danger btn-sm w-100">
+                    <a href="{% url 'users:logout' %}" class="btn btn-danger btn-sm w-100 mb-2">
                         <i class="bi bi-box-arrow-right"></i> Выход
+                    </a>
+                    <p class="small text-muted">Или удалить свой аккаунт навсегда:</p>
+                    <a href="{% url 'users:delete_account' %}" class="btn btn-danger btn-sm w-100">
+                        <i class="bi bi-trash"></i> Удалить аккаунт
                     </a>
                 </div>
             </div>

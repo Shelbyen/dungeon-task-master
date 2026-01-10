@@ -5,8 +5,22 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="27045561-be02-4320-beb3-915db1c7d6b7" name="Changes" comment="Merge pull request #2 from Shelbyen/feature/task-crud&#10;&#10;feat: implement CRUD operations for tasks with templates">
-      <change beforePath="$PROJECT_DIR$/.idea/dungeon-task-master.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/dungeon-task-master.iml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/tasks/migrations/0004_auto_20260110_0348.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/tasks/migrations/0005_fix_user_foreign_key.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/tasks/migrations/0006_fix_foreign_key_constraint.py.bak2" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/tasks/migrations/0006_fix_table_structure.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/tasks/migrations/0006_recreate_tasks_table_properly.py.bak" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/tasks/migrations/0007_fix_foreign_key_with_raw_sql.py.bak2" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/tasks/migrations/0008_add_foreign_key_constraint.py.bak2" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/users/templates/users/change_password.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/users/templates/users/delete_account_confirmation.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/users/templates/users/edit_profile.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/tasks/views.py" beforeDir="false" afterPath="$PROJECT_DIR$/tasks/views.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/tasktracker/templates/base.html" beforeDir="false" afterPath="$PROJECT_DIR$/tasktracker/templates/base.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/tasktracker/urls.py" beforeDir="false" afterPath="$PROJECT_DIR$/tasktracker/urls.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/users/templates/users/profile.html" beforeDir="false" afterPath="$PROJECT_DIR$/users/templates/users/profile.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/users/urls.py" beforeDir="false" afterPath="$PROJECT_DIR$/users/urls.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/users/views.py" beforeDir="false" afterPath="$PROJECT_DIR$/users/views.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -95,26 +109,27 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent">{
-  &quot;keyToString&quot;: {
-    &quot;ModuleVcsDetector.initialDetectionPerformed&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.OpenDjangoStructureViewOnStart&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.TerminalTabsStorage.copyFrom.TerminalArrangementManager.252&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.git.unshallow&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.pycharm.django.structure.promotion.once.per.project&quot;: &quot;true&quot;,
-    &quot;SHARE_PROJECT_CONFIGURATION_FILES&quot;: &quot;true&quot;,
-    &quot;git-widget-placeholder&quot;: &quot;develop&quot;,
-    &quot;last_opened_file_path&quot;: &quot;/Users/infinitrator/dungeon-task-master&quot;,
-    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
-    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
-    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
-    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
-    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
-    &quot;settings.editor.selected.configurable&quot;: &quot;com.jetbrains.python.configuration.PyActiveSdkModuleConfigurable&quot;,
-    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "Django Server.dungeon-task-master.executor": "Run",
+    "ModuleVcsDetector.initialDetectionPerformed": "true",
+    "RunOnceActivity.OpenDjangoStructureViewOnStart": "true",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "RunOnceActivity.TerminalTabsStorage.copyFrom.TerminalArrangementManager.252": "true",
+    "RunOnceActivity.git.unshallow": "true",
+    "RunOnceActivity.pycharm.django.structure.promotion.once.per.project": "true",
+    "SHARE_PROJECT_CONFIGURATION_FILES": "true",
+    "git-widget-placeholder": "develop",
+    "last_opened_file_path": "/Users/infinitrator/dungeon-task-master",
+    "node.js.detected.package.eslint": "true",
+    "node.js.detected.package.tslint": "true",
+    "node.js.selected.package.eslint": "(autodetect)",
+    "node.js.selected.package.tslint": "(autodetect)",
+    "nodejs_package_manager_path": "npm",
+    "settings.editor.selected.configurable": "com.jetbrains.python.configuration.PyActiveSdkModuleConfigurable",
+    "vue.rearranger.settings.migration": "true"
   }
-}</component>
+}]]></component>
   <component name="PyConsoleOptionsProvider">
     <option name="myPythonConsoleState">
       <console-settings is-module-sdk="true">
@@ -130,6 +145,7 @@
       <option name="PARENT_ENVS" value="true" />
       <envs>
         <env name="PYTHONUNBUFFERED" value="1" />
+        <env name="DJANGO_SETTINGS_MODULE" value="tasktracker.settings" />
       </envs>
       <option name="SDK_HOME" value="" />
       <option name="WORKING_DIRECTORY" value="" />
@@ -180,7 +196,15 @@
       <option name="project" value="LOCAL" />
       <updated>1768008236260</updated>
     </task>
-    <option name="localTasksCounter" value="2" />
+    <task id="LOCAL-00002" summary="feat: implement CRUD operations for tasks with templates(Patch with troubles of registration and task adding)">
+      <option name="closed" value="true" />
+      <created>1768014383175</created>
+      <option name="number" value="00002" />
+      <option name="presentableId" value="LOCAL-00002" />
+      <option name="project" value="LOCAL" />
+      <updated>1768014383175</updated>
+    </task>
+    <option name="localTasksCounter" value="3" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -241,6 +265,7 @@
   </component>
   <component name="VcsManagerConfiguration">
     <MESSAGE value="Merge pull request #2 from Shelbyen/feature/task-crud&#10;&#10;feat: implement CRUD operations for tasks with templates" />
-    <option name="LAST_COMMIT_MESSAGE" value="Merge pull request #2 from Shelbyen/feature/task-crud&#10;&#10;feat: implement CRUD operations for tasks with templates" />
+    <MESSAGE value="feat: implement CRUD operations for tasks with templates(Patch with troubles of registration and task adding)" />
+    <option name="LAST_COMMIT_MESSAGE" value="feat: implement CRUD operations for tasks with templates(Patch with troubles of registration and task adding)" />
   </component>
 </project>
